@@ -17,6 +17,7 @@ void setup() {
   lcd.begin();
   // Print "Hello, World!" on the LCD
   lcd.setCursor(0, 0); // Set cursor to position (0, 0)
+  lcd.background()
   lcd.println("Hello, World!");
 }
 
