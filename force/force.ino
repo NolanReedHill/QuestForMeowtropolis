@@ -1,18 +1,31 @@
 #include <Elegoo_GFX.h>    // Core graphics library
-#include <Elegoo_TFTLCD.h> // Hardware-specific library for Elegoo TFT LCD
+#include <Elegoo_TFTLCD.h> // Hardware-specific library
+#include <SPI.h>
 
-#define YP A3 // Must be an analog pin, use "An" notation!
-#define XM A2 // Must be an analog pin, use "An" notation!
-#define YM 9  // Can be a digital pin
-#define XP 8  // Can be a digital pin
-#define THERM A7 //Thermister
-
+// The control pins for the LCD can be assigned to any digital or
+// analog pins...but we'll use the analog pins as this allows us to
+// double up the pins with the touch screen (see the TFT paint example).
 #define LCD_CS A3 // Chip Select goes to Analog 3
 #define LCD_CD A2 // Command/Data goes to Analog 2
 #define LCD_WR A1 // LCD Write goes to Analog 1
 #define LCD_RD A0 // LCD Read goes to Analog 0
+
 #define LCD_RESET A4 // Can alternately just connect to Arduino's reset pin
 
+// When using the BREAKOUT BOARD only, use these 8 data lines to the LCD:
+// For the Arduino Uno, Duemilanove, Diecimila, etc.:
+//   D0 connects to digital pin 8  (Notice these are
+//   D1 connects to digital pin 9   NOT in order!)
+//   D2 connects to digital pin 2
+//   D3 connects to digital pin 3
+//   D4 connects to digital pin 4
+//   D5 connects to digital pin 5
+//   D6 connects to digital pin 6
+//   D7 connects to digital pin 7
+// For the Arduino Mega, use digital pins 22 through 29
+// (on the 2-row header at the end of the board).
+
+// Assign human-readable names to some common 16-bit color values:
 #define	BLACK   0x0000
 #define	BLUE    0x001F
 #define	RED     0xF800
@@ -22,30 +35,17 @@
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
 
-// For 2.8" TFT LCD Shield
-#define TS_MINX 0
-#define TS_MINY 0
-#define TS_MAXX 240
-#define TS_MAXY 320
 
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
 
 Elegoo_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
+// If using the shield, all control and data lines are fixed, and
+// a simpler declaration can optionally be used:
+// Elegoo_TFTLCD tft;
 
-#define RT0 10000 // Ω
-#define B 3977    //  K
-//--------------------------------------
-
-#define VCC 5   // Supply  voltage
-#define R 10000 // R=10KΩ
-
-// Variables
-float RT, VR, ln, TX, T0, VRT;
-
-void setup()
-{
+void setup(void) {
   Serial.begin(9600);
+  Serial.println(F("TFT LCD test"));
+  pinMode(A11, INPUT);
 
 #ifdef USE_Elegoo_SHIELD_PINOUT
   Serial.println(F("Using Elegoo 2.8\" TFT Arduino Shield Pinout"));
@@ -53,8 +53,10 @@ void setup()
   Serial.println(F("Using Elegoo 2.8\" TFT Breakout Board Pinout"));
 #endif
 
-  // Initialize LCD
+  Serial.print("TFT size is "); Serial.print(tft.width()); Serial.print("x"); Serial.println(tft.height());
+
   tft.reset();
+
   uint16_t identifier = tft.readID();
    if(identifier == 0x9325) {
     Serial.println(F("Found ILI9325 LCD driver"));
@@ -82,46 +84,29 @@ void setup()
     Serial.println(F("Also if using the breakout, double-check that all wiring"));
     Serial.println(F("matches the tutorial."));
     identifier=0x9341;
-  
   }
-  tft.begin(identifier);
-  tft.setRotation(3); // Adjust rotation if needed
+    tft.begin(identifier);
 
-  // Clear the screen
-  tft.fillScreen(BLACK);
-
-  T0 = 25 + 273.15; // Temperature  T0 from datasheet, conversion from Celsius to kelvin
+    Serial.println(F("Benchmark                Time (microseconds)"));
+    tft.fillRect(0, 0, 240, 320, BLACK);
 }
 
-void loop()
-{
-  VRT = analogRead(THERM);         // Acquisition analog value of VRT
-  VRT = (5.00 / 1023.00) * VRT; // Conversion to voltage
-  VR = VCC - VRT;
-  RT = VRT / (VR / R); // Resistance of RT
+ 
 
-  ln = log(RT / RT0);
-  TX = (1 / ((ln / B) + (1 / T0))); // Temperature from thermistor
 
-  TX = TX - 273.15; // Conversion to Celsius
 
-  // Draw a circle around the sprite when the thermistor is touched
-  if (thermistorTouched())
-  {
-    tft.setCursor(150, 100);
-    tft.drawCircle(100, 100, 5, WHITE);
-    delay(10);                   // Adjust delay as needed
-    tft.fillScreen(BLACK); // Clear the screen after drawing
+
+
+void loop() {
+  tft.fillRect(0,0,240,320,BLACK);
+  int forceValue = analogRead(A11);
+  int forceConstriction = map(forceValue, 0, 1000, 0, 40);
+  tft.setCursor(50, 50);
+  tft.println(forceConstriction);
+  if (forceConstriction > 40) { 
+    // game action meowmeow meow
   }
-
-  // You can add more game logic here
-
-  delay(5);
+  delay(10); 
 }
 
-bool thermistorTouched()
-{
-  float temp = analogRead(THERM);
-  tft.println(TX);
-  return true;
-}
+
