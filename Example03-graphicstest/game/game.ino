@@ -241,7 +241,11 @@ unsigned long titleScreen() {
 unsigned long drawCharacter(uint8_t frame) {
   switch(frame) 
   {
-    case 0: 
+    case 0:
+    tft.fillRect(58, 219, 12, 4, ORANGE);
+    tft.fillRect(56, 218, 2, 6, ORANGE);
+    tft.fillRect(67,215,3,3,ORANGE);
+    tft.fillRect(68,216,3,5,ORANGE);
     tft.fillRect(57,210,1,1,ORANGE);
     tft.fillRect(56,211,3,1,ORANGE);
     tft.fillRect(55,212,5,1,ORANGE);
@@ -324,7 +328,7 @@ unsigned long drawCharacter(uint8_t frame) {
 
 
     break;
-    case 1: tft.fillRect(70, 210, 25, 35, RED);
+    case 1: //tft.fillRect(50, 210, 25, 35, RED);
 
 
 
