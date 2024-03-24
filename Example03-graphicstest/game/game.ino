@@ -1,44 +1,27 @@
-// IMPORTANT: ELEGOO_TFTLCD LIBRARY MUST BE SPECIFICALLY
-// CONFIGURED FOR EITHER THE TFT SHIELD OR THE BREAKOUT BOARD.
-// SEE RELEVANT COMMENTS IN Elegoo_TFTLCD.h FOR SETUP.
-//Technical support:goodtft@163.com
+// UVA HACKATHON 2024
+// Quest for Meowtroplis
+// Made by Aislinn Jones and Nolan Hill
+// ------------------------------------
 
 #include <Elegoo_GFX.h>    // Core graphics library
 #include <Elegoo_TFTLCD.h> // Hardware-specific library
 #include <SPI.h>
 #include "sprites.h"
 
-// The control pins for the LCD can be assigned to any digital or
-// analog pins...but we'll use the analog pins as this allows us to
-// double up the pins with the touch screen (see the TFT paint example).
-#define LCD_CS A3 // Chip Select goes to Analog 3
-#define LCD_CD A2 // Command/Data goes to Analog 2
-#define LCD_WR A1 // LCD Write goes to Analog 1
-#define LCD_RD A0 // LCD Read goes to Analog 0
+#define LCD_CS A3 
+#define LCD_CD A2 
+#define LCD_WR A1 
+#define LCD_RD A0 
 
-#define LCD_RESET A4 // Can alternately just connect to Arduino's reset pin
+#define LCD_RESET A4 
 
-#define BUTTON A6 //Jump button pin
+#define BUTTON A6 
 
 #define ACCELX A8 //accelerometer xyz
 #define ACCELY A9
 #define ACCELZ A10
 
-
-// When using the BREAKOUT BOARD only, use these 8 data lines to the LCD:
-// For the Arduino Uno, Duemilanove, Diecimila, etc.:
-//   D0 connects to digital pin 8  (Notice these are
-//   D1 connects to digital pin 9   NOT in order!)
-//   D2 connects to digital pin 2
-//   D3 connects to digital pin 3
-//   D4 connects to digital pin 4
-//   D5 connects to digital pin 5
-//   D6 connects to digital pin 6
-//   D7 connects to digital pin 7
-// For the Arduino Mega, use digital pins 22 through 29
-// (on the 2-row header at the end of the board).
-
-// Assign human-readable names to some common 16-bit color values:
+// colors to maybe use:
 #define	BLACK   0x0000
 #define	BLUE    0x001F
 #define	RED     0xF800
@@ -56,9 +39,6 @@
 
 
 Elegoo_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
-// If using the shield, all control and data lines are fixed, and
-// a simpler declaration can optionally be used:
-// Elegoo_TFTLCD tft;
 
 void setup(void) {
   Serial.begin(9600);
@@ -172,8 +152,6 @@ void loop(void) {
 
   } else {
 
-  
-
   collisionCheck();
 
   if (digitalRead(BUTTON) == HIGH) {
@@ -188,8 +166,6 @@ void loop(void) {
       playerY = 210 + momentum;
       isPressed = false;
   } 
-
- 
 
   if (!isCloudPresent && rand() %15 == 1) {
     drawCloud();
@@ -480,11 +456,102 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(69,242,4,1,ORANGE);
     tft.fillRect(50,224,2,8,BLUE);
     tft.fillRect(50,234,2,11,ORANGE);
+   
     break;
     case 2:
-
-
-
+    // player y is 210
+    tft.fillRect(58, playerY+9, 12, 4, ORANGE);
+    tft.fillRect(56, playerY+8, 2, 6, ORANGE);
+    tft.fillRect(67,playerY+5=,3,3,ORANGE);
+    tft.fillRect(68,playerY+6,3,5,ORANGE);
+    tft.fillRect(57,playerY,1,1,ORANGE);
+    tft.fillRect(56,playerY+1,3,1,ORANGE);
+    tft.fillRect(55,playerY+2,5,1,ORANGE);
+    tft.fillRect(55,playerY+3,2,1,ORANGE);
+    tft.fillRect(57,playerY+3,1,1,BROWN);
+    tft.fillRect(58,playerY+3,2,1,ORANGE);
+    tft.fillRect(55,playerY+4,1,1,ORANGE);
+    tft.fillRect(56,playerY+4,3,1,BROWN);
+    tft.fillRect(59,playerY+4,1,1,ORANGE);
+    tft.fillRect(55,playerY+5,14,4,ORANGE);
+    tft.fillRect(70,playerY+6,1,1,ORANGE);
+    tft.fillRect(67,playerY+1,2,1,ORANGE);
+    tft.fillRect(66,playerY+2,2,1,ORANGE);
+    tft.fillRect(65,playerY+3,5,2,ORANGE);
+    tft.fillRect(67,playerY+5,3,2,BROWN);
+    tft.fillRect(68,playerY+2,1,1,BROWN);
+    tft.fillRect(69,playerY+1,1,2,ORANGE);
+    tft.fillRect(55,playerY+5,14,5,ORANGE);
+    tft.fillRect(70,playerY+6,1,13,ORANGE);
+    tft.fillRect(71,playerY+7,1,5,ORANGE);
+    tft.fillRect(72,playerY+7,1,1,GRAY);
+    tft.fillRect(72,playerY+9,2,1,GRAY);
+    tft.fillRect(60,playerY+6,2,2,WHITE);
+    tft.fillRect(61,playerY+7,1,1,BLACK);
+    tft.fillRect(65,playerY+6,2,2,WHITE);
+    tft.fillRect(66,playerY+7,1,1,BLACK);  
+    tft.fillRect(62,playerY+9,1,1,PINK);
+    tft.fillRect(61,playerY+10,1,1,BLACK);
+    tft.fillRect(62,playerY+11,1,1,BLACK);
+    tft.fillRect(63,playerY+10,1,1,BLACK);
+    tft.fillRect(64,playerY+11,2,1,BLACK);
+    tft.fillRect(66,playerY+10,1,1,BLACK);
+    tft.fillRect(54,playerY+7,3,1,GRAY);
+    tft.fillRect(54,playerY+9,2,1,GRAY);
+    tft.fillRect(56,playerY+11,1,1,GRAY);
+    tft.fillRect(57,playerY+12,1,1,GRAY);
+    tft.fillRect(58,playerY+13,12,1,GRAY);
+    tft.fillRect(70,playerY+12,1,1,GRAY);
+    tft.fillRect(71,playerY+11,1,1,GRAY);
+    tft.fillRect(70,playerY+13,2,1,ORANGE);
+    tft.fillRect(54,playerY+13,4,1,ORANGE);
+    tft.fillRect(50,playerY+14,2,10,ORANGE);
+    tft.fillRect(52,playerY+22,2,2,ORANGE);
+    tft.fillRect(54,playerY+23,1,2,ORANGE);
+    tft.fillRect(55,playerY+23,2,2,ORANGE);
+    tft.fillRect(54,playerY+12,3,7,ORANGE);
+    tft.fillRect(53,playerY+19,2,2,ORANGE);
+    tft.fillRect(54,playerY+19,1,1,GRAY);
+    tft.fillRect(53,playerY+20,1,1,GRAY);
+    tft.fillRect(57,playerY+14,13,11,ORANGE);
+    tft.fillRect(57,playerY+25,5,6,ORANGE);
+    tft.fillRect(57,playerY+31,4,1,ORANGE);
+    tft.fillRect(58,playerY+32,3,1,ORANGE);
+    tft.fillRect(57,playerY+33,3,2,ORANGE);
+    tft.fillRect(58,playerY+33,1,1,GRAY);
+    tft.fillRect(57,playerY+34,1,1,GRAY);
+    tft.fillRect(59,playerY+34,1,1,GRAY);
+    tft.fillRect(63,playerY+25,5,6,ORANGE);
+    tft.fillRect(64,playerY+31,4,2,ORANGE);
+    tft.fillRect(65,playerY+33,4,2,ORANGE);
+    tft.fillRect(67,playerY+33,1,1,GRAY);
+    tft.fillRect(66,playerY+34,1,1,GRAY);
+    tft.fillRect(68,playerY+34,1,1,GRAY);
+    tft.fillRect(70,playerY+14,2,5,ORANGE);
+    tft.fillRect(72,playerY+16,1,1,ORANGE);
+    tft.fillRect(72,playerY+17,2,3,ORANGE);
+    tft.fillRect(73,playerY+18,2,3,ORANGE);
+    tft.fillRect(73,playerY+19,1,1,GRAY);
+    tft.fillRect(74,playerY+20,1,1,GRAY);
+    tft.fillRect(70,playerY+13,5,10,WHITE);
+    tft.fillRect(70,playerY+14,1,4,ORANGE);
+    tft.fillRect(71,playerY+13,1,4,ORANGE);
+    tft.fillRect(72,playerY+13,1,3,ORANGE);
+    tft.fillRect(73,playerY+12,1,3,ORANGE);
+    tft.fillRect(74,playerY+11,1,3,ORANGE);
+    tft.fillRect(65,playerY+25,7,8,WHITE);
+    tft.fillRect(65,playerY+25,6,4,ORANGE);
+    tft.fillRect(66,playerY+29,6,1,ORANGE);
+    tft.fillRect(67,playerY+30,5,1,ORANGE);
+    tft.fillRect(68,playerY+31,5,1,ORANGE);
+    tft.fillRect(69,playerY+32,4,1,ORANGE);
+    tft.fillRect(50,playerY+14,2,8,BLUE);
+    tft.fillRect(50,playerY+24,2,11,ORANGE);
+    tft.fillRect(56,playerY+25,15,10,BLUE);
+    tft.fillRect(56,playerY+27,4,2,ORANGE);
+    tft.fillRect(57,playerY+25,5,2,ORANGE);
+    tft.fillRect(65,playerY+25,5,2,ORANGE);
+    tft.fillRect(67,playerY+27,5,2,ORANGE);
 
     break;
     default: tft.fillRect(50, playerY, 25, 35, GREEN);
@@ -626,8 +693,6 @@ unsigned long checkAccel() {
     quakeSequence --;
   }
 
-
-
   int x = analogRead(ACCELX);
   int y = analogRead(ACCELY);
   int z = analogRead(ACCELZ);
@@ -641,15 +706,11 @@ unsigned long checkAccel() {
   float y_g_value = yMilliG / 1000.0;
   float z_g_value = zMilliG / 1000.0;
 
-
-
   float accelerationMagnitude = sqrt(x_g_value * x_g_value + y_g_value * y_g_value + z_g_value * z_g_value);
   if (accelerationMagnitude > ACCELEROMETER_THRESHOLD) {
     quakeSequence = 3;
 }
 }
-
-
 
 unsigned long gameOver(int s) {
   switch(gameOverSequence) {
@@ -1007,7 +1068,6 @@ unsigned long gameOver(int s) {
     tft.fillRect(68,216+70,1,1,BLACK);
     tft.fillRect(68,218+70,1,1,BLACK);
 
-
     tft.fillRect(50, playerY+40, 25, 245-(playerY+10), BLUE);
     tft.fillRect(50, 245, 25, (playerY+70)-210, GREEN);
 
@@ -1097,8 +1157,6 @@ unsigned long gameOver(int s) {
     tft.fillRect(55,218+90,1,1,BLACK);
     tft.fillRect(68,216+90,1,1,BLACK);
     tft.fillRect(68,218+90,1,1,BLACK);
-
-
     tft.fillRect(50, playerY+70, 25, 245-(playerY+10), BLUE);
     tft.fillRect(50, 245, 25, (playerY+90)-210, GREEN);
     break;
@@ -1118,7 +1176,6 @@ unsigned long gameOver(int s) {
   }
 
 }
-
 
 unsigned long testFillScreen() {
   unsigned long start = micros();
@@ -1250,7 +1307,6 @@ unsigned long testFilledRects(uint16_t color1, uint16_t color2) {
     start = micros();
     tft.fillRect(cx-i2, cy-i2, i, i, color1);
     t    += micros() - start;
-    // Outlines are not included in timing results
     tft.drawRect(cx-i2, cy-i2, i, i, color2);
   }
 
