@@ -201,6 +201,7 @@ void loop(void) {
 
   displayScore();
   for(uint8_t frame=0; frame<2; frame++) {
+    if(playerY != 210) frame = 2;
     drawCharacter(frame);
   }
 
@@ -479,8 +480,8 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(69,242,4,1,ORANGE);
     tft.fillRect(50,224,2,8,BLUE);
     tft.fillRect(50,234,2,11,ORANGE);
-
-
+    break;
+    case 2:
 
 
 
