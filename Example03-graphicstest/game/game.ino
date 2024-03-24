@@ -6,6 +6,7 @@
 #include <Elegoo_GFX.h>    // Core graphics library
 #include <Elegoo_TFTLCD.h> // Hardware-specific library
 #include <SPI.h>
+#include "sprites.h"
 
 // The control pins for the LCD can be assigned to any digital or
 // analog pins...but we'll use the analog pins as this allows us to
@@ -16,6 +17,9 @@
 #define LCD_RD A0 // LCD Read goes to Analog 0
 
 #define LCD_RESET A4 // Can alternately just connect to Arduino's reset pin
+
+#define BUTTON A6 //Jump button pin
+
 
 // When using the BREAKOUT BOARD only, use these 8 data lines to the LCD:
 // For the Arduino Uno, Duemilanove, Diecimila, etc.:
@@ -94,41 +98,6 @@ void setup(void) {
   tft.begin(identifier);
 
   Serial.println(F("Benchmark                Time (microseconds)"));
-
-  // Serial.print(F("Screen fill              "));
-  // Serial.println(testFillScreen());
-  // delay(500);
-
-  // Serial.print(F("Text                     "));
-  // Serial.println(testText());
-  // delay(3000);
-
-  // Serial.print(F("Lines                    "));
-  // Serial.println(testLines(CYAN));
-  // delay(500);
-
-  // Serial.print(F("Horiz/Vert Lines         "));
-  // Serial.println(testFastLines(RED, BLUE));
-  // delay(500);
-
-  // Serial.print(F("Rectangles (outline)     "));
-  // Serial.println(testRects(GREEN));
-  // delay(500);
-
-  // Serial.print(F("Rectangles (filled)      "));
-  // Serial.println(testFilledRects(YELLOW, MAGENTA));
-  // delay(500);
-
-  // Serial.print(F("Circles (filled)         "));
-  // Serial.println(testFilledCircles(10, MAGENTA));
-
-  // Serial.print(F("Circles (outline)        "));
-  // Serial.println(testCircles(10, WHITE));
-  // delay(500);
-
-  // Serial.print(F("Triangles (outline)      "));
-  // Serial.println(testTriangles());
-  // delay(500);
   tft.setRotation(2);
   Serial.print(F("Text"));
   Serial.println(titleScreen());
@@ -146,10 +115,23 @@ int cloudY = rand() % 60 +60;
 int cloudX = 240;
 int cloud2Y = 0;
 int score = 0;
-int isCloudPresent = 0;
+bool isCloudPresent = false;
+int playerY = 210;
+int playerYDynamic = 210;
+int momentum = 0;
+bool isPressed = false;
 
 void loop(void) {
 
+  if (digitalRead(BUTTON) == HIGH) {
+    jump();
+  }
+  if (digitalRead(BUTTON) == LOW){
+      if (momentum < 0)
+      momentum += 20;
+      playerY = 210 + momentum;
+      isPressed = false;
+  } 
   if (!isCloudPresent && rand() %15 == 1) {
     drawCloud();
   }
@@ -180,11 +162,15 @@ unsigned long titleScreen() {
 unsigned long drawCharacter(uint8_t frame) {
   switch(frame) 
   {
-    case 0: tft.fillRect(70, 210, 25, 35, WHITE);
+    case 0: tft.fillRect(70, playerY, 25, 35, WHITE);
     break;
-    case 1: tft.fillRect(70, 210, 25, 35, RED);
+    case 1: tft.fillRect(70, playerY, 25, 35, RED);
     break;
-    default: tft.fillRect(70, 170, 25, 35, WHITE);
+    default: tft.fillRect(70, playerY, 25, 35, WHITE);
+  }
+  Serial.println(playerY);
+  if (playerY < 210) {
+    tft.fillRect(70, playerY+70, 25, 210-(playerY+70), BLUE);
   }
   delay(60);
 }
@@ -195,7 +181,7 @@ unsigned long drawCloud() {
       int diff = rand() %2;
       cloud2Y = (diff) ? cloudY + 20 : cloudY - 20;
       if (cloud2Y >= 120) cloud2Y = 120;
-      isCloudPresent = 1;
+      isCloudPresent = true;
   }
 
   tft.fillCircle(cloudX,cloudY,10, WHITE);
@@ -226,6 +212,19 @@ unsigned long displayScore() {
   tft.println(score);
 
 }
+
+unsigned long jump() {
+  if ( momentum > -60 && !isPressed) {
+    momentum -= 20;
+    Serial.println(momentum);
+  }
+  else if (momentum < 0){
+    isPressed = true;
+    momentum += 20;
+  }
+  playerY = 210+momentum;
+}
+
 
 unsigned long testFillScreen() {
   unsigned long start = micros();
@@ -415,4 +414,3 @@ unsigned long testTriangles() {
 
   return micros() - start;
 }
-
