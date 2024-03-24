@@ -32,6 +32,5 @@
 # red wire -> A11 arduino
 # buzzers (2x):
 # orange wire -> 14 pin purple - 15 pin arduino
-_
-![alt text](https://github.com/nolanreedhill/markdown-here/raw/master/src/common.images/IMG_7909.HEIC "Logo Title Text 1")
+# see image file on GitHub for where the wires are on breadboard, note own variations of circuit creations.
 
