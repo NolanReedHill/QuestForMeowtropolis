@@ -463,6 +463,7 @@ unsigned long drawCharacter(uint8_t frame) {
     break;
     case 2:
     // player y is 210
+    tft.fillRect(50,playerY+34,2,1,BLUE);
     tft.fillRect(58, playerY+9, 12, 4, ORANGE);
     tft.fillRect(56, playerY+8, 2, 6, ORANGE);
     tft.fillRect(67,playerY+5,3,3,ORANGE);
@@ -557,7 +558,8 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(67,playerY+27,5,2,ORANGE);
     tft.fillRect(50,playerY+14,2,2,BLUE);
     tft.fillRect(60,playerY,5,5,BLUE);
-
+// tail shorter cover up tail too
+    tft.fillRect(50,playerY+14,2,8,BLUE);
     break;
     default: tft.fillRect(50, playerY, 25, 35, GREEN);
   }
