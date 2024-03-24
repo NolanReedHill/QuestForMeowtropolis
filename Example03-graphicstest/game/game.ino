@@ -122,6 +122,8 @@ int momentum = 0;
 bool isPressed = false;
 bool goingDown = false;
 int obstacleX = 240;
+int obstacleW = 20;
+int obstacleH = 20;
 bool isObstaclePresent = false;
 
 void loop(void) {
@@ -154,7 +156,11 @@ void loop(void) {
     drawCharacter(frame);
   }
 
-   if ( !isObstaclePresent && rand() % 2 == 1) {
+   if ( !isObstaclePresent && rand() % 10 == 1) {
+    sendObstacle();
+  }
+  if (isObstaclePresent) {
+    obstacleX -= 20;
     sendObstacle();
   }
 }
@@ -222,9 +228,14 @@ unsigned long drawCloud() {
 }
 
 unsigned long sendObstacle() {
-  tft.fillRect(obstacleX, 230, 25, 15, BLACK);
-  tft.fillRect(obstacleX+25, 230, 25, 15, BLUE);
-  obstacleX -=20;
+  if (!isObstaclePresent) {
+    obstacleW = rand() % 25 +10;
+    obstacleH = rand() % 30 +10;
+    isObstaclePresent = true;
+  }
+  
+  tft.fillRect(obstacleX, 245-obstacleH, obstacleW, obstacleH, BLACK);
+  tft.fillRect(obstacleX+obstacleW, 245-obstacleH, obstacleW+20, obstacleH, BLUE);
 
   if (obstacleX < -50) {
     obstacleX = 240;
