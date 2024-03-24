@@ -369,6 +369,8 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(73,228,2,3,ORANGE);
     tft.fillRect(73,229,1,1,GRAY);
     tft.fillRect(74,230,1,1,GRAY);
+    // tail shorter cover up tail too
+    tft.fillRect(50,playerY+14,2,8,BLUE);
 
     break;
     case 1: 
@@ -556,10 +558,9 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(57,playerY+25,5,2,ORANGE);
     tft.fillRect(65,playerY+25,5,2,ORANGE);
     tft.fillRect(67,playerY+27,5,2,ORANGE);
-    tft.fillRect(50,playerY+14,2,2,BLUE);
+    tft.fillRect(50,playerY,2,14,BLUE);
     tft.fillRect(60,playerY,5,5,BLUE);
-// tail shorter cover up tail too
-    tft.fillRect(50,playerY+14,2,8,BLUE);
+
     break;
     default: tft.fillRect(50, playerY, 25, 35, GREEN);
   }
@@ -610,7 +611,7 @@ unsigned long sendObstacle() {
     isObstaclePresent = true;
   }
   
-  tft.fillRect(obstacleX+3, 250-obstacleH, 4, obstacleH-5,TRINK);
+  tft.fillRect(obstacleX+3, 250-obstacleH, obstacle, obstacleH-5,TRINK);
   tft.fillRect(obstacleX, 246-obstacleH, obstacleW, 4,LGREEN);
   tft.fillRect(obstacleX+5, 245-obstacleH, obstacleW-7, 1,LGREEN);
 
