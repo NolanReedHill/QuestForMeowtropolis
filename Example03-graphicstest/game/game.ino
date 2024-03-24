@@ -6,7 +6,7 @@
 #include <Elegoo_GFX.h>    // Core graphics library
 #include <Elegoo_TFTLCD.h> // Hardware-specific library
 #include <SPI.h>
-//#include <Tone.h>
+#include <Tone.h>
 // The control pins for the LCD can be assigned to any digital or
 // analog pins...but we'll use the analog pins as this allows us to
 // double up the pins with the touch screen (see the TFT paint example).
@@ -351,6 +351,7 @@ unsigned long jump() {
 unsigned long collisionCheck() {
   if ((obstacleX >= 50 && obstacleX <= 75) || (obstacleX+obstacleW >= 50 && obstacleX+obstacleW <=75)) {
     if(245-obstacleH >= playerY && 245-obstacleH <= playerY+35) {
+      deathSound();
       delay(1000);
       isGameOver = true;
     }
@@ -462,28 +463,64 @@ unsigned long gameOver(int s) {
 
 unsigned long jumpSound() {
   isJumpPlaying = true;
-  int tonePin = 14;
-    tone(tonePin, 391, 47.619047619);
+  Tone tone1;
+  tone1.begin(14);
+    tone1.play( 391, 47.619047619);
     // delay(47.619047619);
     // delay(47.619047619);
     // delay(23.8095238095);
-    tone(tonePin, 415, 47.619047619);
+    tone1.play( 415, 47.619047619);
     // delay(47.619047619);
-    tone(tonePin, 880, 47.619047619);
+    tone1.play( 880, 47.619047619);
     // delay(47.619047619);
     // delay(23.8095238095);
     // delay(23.8095238095);
-    tone(tonePin, 1046, 23.8095238095);
+    tone1.play(1046, 23.8095238095);
     // delay(23.8095238095);
-    tone(tonePin, 554, 23.8095238095);
+    tone1.play( 554, 23.8095238095);
     // delay(23.8095238095);
     // delay(23.8095238095);
-    tone(tonePin, 587, 23.8095238095);
+    tone1.play( 587, 23.8095238095);
     // delay(23.8095238095);
-    tone(tonePin, 622, 23.8095238095);
+    tone1.play( 622, 23.8095238095);
     // delay(23.8095238095);
-    tone(tonePin, 659, 47.619047619);
+    tone1.play( 659, 47.619047619);
     // delay(47.619047619);
     isJumpPlaying = false;
+}
+unsigned long deathSound() {
+  Tone tone1;
+  Tone tone2;
+  tone1.begin(14);
+  tone2.begin(15);
+
+  tone1.play(NOTE_B3, 250);
+  tone2.play(NOTE_G2, 250);
+  delay(250);
+  tone1.play(NOTE_F4, 250);
+  delay(500);
+  tone1.play(NOTE_F4, 250);
+  tone2.play(NOTE_G2, 250);
+  delay(250);
+  tone1.play(NOTE_F4, 333);
+  tone2.play(NOTE_G2, 333);
+  delay(333);
+  tone1.play(NOTE_E4, 333);
+  tone2.play(NOTE_A2, 333);
+  delay(333);
+  tone1.play(NOTE_D4, 333);
+  tone2.play(NOTE_B2, 333);
+  delay(333);
+  tone1.play(NOTE_C4, 250);
+  tone2.play(NOTE_C3, 250);
+  delay(250);
+  tone1.play(NOTE_E3, 250);
+  delay(250);
+  tone2.play(NOTE_G2, 250);
+  delay(250);
+  tone1.play(NOTE_E3, 250);
+  delay(250);
+  tone1.play(NOTE_C3, 500);
+  tone2.play(NOTE_C2, 500);
 }
 
