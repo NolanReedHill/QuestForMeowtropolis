@@ -160,6 +160,9 @@ void loop(void) {
       isObstaclePresent = false;
       obstacleX = 240;
       score = 0;
+      yarnX = 300;
+      yarnY = 0;
+      isYarnPresent = false;
       tft.fillRect(0,0, 240, 245, BLUE);
       gameOverSequence = 5;
 
@@ -215,7 +218,7 @@ void loop(void) {
       yarnX-= 15;
       yarnY+=15;
     }
-    else yarnY-=15;
+    else yarnY-=20;
     sendYarn();
   }
 
@@ -353,7 +356,7 @@ unsigned long collisionCheck() {
     }
     
   }
-  else if (yarnX <= 40 && yarnY >= playerY) {
+  else if (yarnX <= 75 && yarnY >= playerY) {
     delay(1000);
     isGameOver = true;
   }
@@ -386,6 +389,9 @@ unsigned long checkAccel() {
     delay(50);
     quakeSequence --;
   }
+  else {
+
+ 
 
 
 
@@ -407,6 +413,7 @@ unsigned long checkAccel() {
   float accelerationMagnitude = sqrt(x_g_value * x_g_value + y_g_value * y_g_value + z_g_value * z_g_value);
   if (accelerationMagnitude > ACCELEROMETER_THRESHOLD) {
     quakeSequence = 3;
+  }
 }
 }
 
