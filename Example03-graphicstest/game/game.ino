@@ -120,6 +120,9 @@ int playerY = 210;
 int playerYDynamic = 210;
 int momentum = 0;
 bool isPressed = false;
+bool goingDown = false;
+int obstacleX = 240;
+bool isObstaclePresent = false;
 
 void loop(void) {
 
@@ -127,11 +130,17 @@ void loop(void) {
     jump();
   }
   if (digitalRead(BUTTON) == LOW){
-      if (momentum < 0)
-      momentum += 20;
+      if (momentum < 0) {
+        goingDown = true;
+        momentum += 20;
+      }
+      else goingDown = false;
       playerY = 210 + momentum;
       isPressed = false;
   } 
+
+ 
+
   if (!isCloudPresent && rand() %15 == 1) {
     drawCloud();
   }
@@ -143,6 +152,10 @@ void loop(void) {
   displayScore();
   for(uint8_t frame=0; frame<2; frame++) {
     drawCharacter(frame);
+  }
+
+   if ( !isObstaclePresent && rand() % 2 == 1) {
+    sendObstacle();
   }
 }
 
@@ -162,16 +175,19 @@ unsigned long titleScreen() {
 unsigned long drawCharacter(uint8_t frame) {
   switch(frame) 
   {
-    case 0: tft.fillRect(70, playerY, 25, 35, WHITE);
+    case 0: tft.fillRect(50, playerY, 25, 35, WHITE);
     break;
-    case 1: tft.fillRect(70, playerY, 25, 35, RED);
+    case 1: tft.fillRect(50, playerY, 25, 35, RED);
     break;
-    default: tft.fillRect(70, playerY, 25, 35, WHITE);
+    default: tft.fillRect(50, playerY, 25, 35, GREEN);
   }
   
   if (playerY < 210) {
-    Serial.println(playerY);
-    tft.fillRect(70, playerY-70, 25, 210-(playerY+70), BLUE);
+   // Serial.println(playerY);
+    tft.fillRect(50, playerY+35, 25, 210-(playerY), BLUE);
+  }
+  if (goingDown) {
+    tft.fillRect(50, playerY-35, 25, 35, BLUE);
   }
   delay(60);
 }
@@ -205,6 +221,17 @@ unsigned long drawCloud() {
   }
 }
 
+unsigned long sendObstacle() {
+  tft.fillRect(obstacleX, 230, 25, 15, BLACK);
+  tft.fillRect(obstacleX+25, 230, 25, 15, BLUE);
+  obstacleX -=20;
+
+  if (obstacleX < -50) {
+    obstacleX = 240;
+    isObstaclePresent = false;
+  }
+}
+
 unsigned long displayScore() {
   tft.fillRect(0,5, 240, 30, BLUE);
   score+= 10;
@@ -220,6 +247,7 @@ unsigned long jump() {
   }
   else if (momentum < 0){
     isPressed = true;
+    goingDown = true;
     momentum += 20;
   }
   playerY = 210+momentum;
