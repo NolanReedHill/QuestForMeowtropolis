@@ -168,9 +168,10 @@ unsigned long drawCharacter(uint8_t frame) {
     break;
     default: tft.fillRect(70, playerY, 25, 35, WHITE);
   }
-  Serial.println(playerY);
+  
   if (playerY < 210) {
-    tft.fillRect(70, playerY+70, 25, 210-(playerY+70), BLUE);
+    Serial.println(playerY);
+    tft.fillRect(70, playerY-70, 25, 210-(playerY+70), BLUE);
   }
   delay(60);
 }
@@ -216,7 +217,6 @@ unsigned long displayScore() {
 unsigned long jump() {
   if ( momentum > -60 && !isPressed) {
     momentum -= 20;
-    Serial.println(momentum);
   }
   else if (momentum < 0){
     isPressed = true;
