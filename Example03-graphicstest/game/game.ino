@@ -15,22 +15,8 @@
 #define LCD_WR A1 // LCD Write goes to Analog 1
 #define LCD_RD A0 // LCD Read goes to Analog 0
 
-#define LCD_RESET A4 // Can alternately just connect to Arduino's reset pin
+#define LCD_RESET A4 
 
-// When using the BREAKOUT BOARD only, use these 8 data lines to the LCD:
-// For the Arduino Uno, Duemilanove, Diecimila, etc.:
-//   D0 connects to digital pin 8  (Notice these are
-//   D1 connects to digital pin 9   NOT in order!)
-//   D2 connects to digital pin 2
-//   D3 connects to digital pin 3
-//   D4 connects to digital pin 4
-//   D5 connects to digital pin 5
-//   D6 connects to digital pin 6
-//   D7 connects to digital pin 7
-// For the Arduino Mega, use digital pins 22 through 29
-// (on the 2-row header at the end of the board).
-
-// Assign human-readable names to some common 16-bit color values:
 #define	BLACK   0x0000
 #define	BLUE    0x001F
 #define	RED     0xF800
@@ -39,6 +25,11 @@
 #define MAGENTA 0xF81F
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
+#define ORANGE  0xf483
+#define GRAY    0xa4d1
+#define PINK    0xe558
+#define BROWN   0x8b06
+#define LBROWN  0xc52f
 
 
 
@@ -175,6 +166,76 @@ unsigned long titleScreen() {
   tft.setTextSize(3.75);
   tft.setCursor(10, 90);
   tft.println("MEOWTROPOLIS");
+
+// drawing big cat for the main title screen
+  tft.fillRect(47,122,2,1,ORANGE);
+  tft.fillRect(47,123,2,1,ORANGE);
+  tft.fillRect(47,124,2,1,ORANGE);
+  tft.fillRect(47,125,2,1,ORANGE);
+  tft.fillRect(47,126,2,1,ORANGE);
+  tft.fillRect(47,127,2,1,ORANGE);
+  tft.fillRect(47,128,2,1,ORANGE);
+  tft.fillRect(47,129,2,1,ORANGE);
+  tft.fillRect(47,130,2,1,ORANGE);
+  tft.fillRect(47,131,3,1,ORANGE);
+  tft.fillRect(48,132,5,1,ORANGE);
+  tft.fillRect(48,133,5,1,ORANGE);
+  tft.fillRect(50,134,1,1,GRAY);
+  tft.fillRect(51,134,4,1,ORANGE);
+  tft.fillRect(50,135,6,1,ORANGE);
+  tft.fillRect(52,131,1,1,ORANGE);
+  tft.fillRect(53,131,2,1,BROWN);
+  tft.fillRect(55,131,1,1,ORANGE);
+  tft.fillRect(56,131,1,1,BROWN);
+  tft.fillRect(57,131,2,1,ORANGE);
+  tft.fillRect(56,126,3,1,GRAY);
+  tft.fillRect(57,124,3,1,GRAY);
+  tft.fillRect(59,125,1,1,GRAY);
+  tft.fillRect(54,132,1,1,BROWN):
+  tft.fillRect(53,133,1,1,BROWN);
+  tft.fillRect(54,132,2,1,ORANGE);
+  tft.fillRect(54,133,2,1,ORANGE);
+  tft.fillRect(56,132,2,1,BROWN);
+  tft.fillRect(56,133,2,1,BROWN);
+  tft.fillRect(55,134,3,1,BROWN);
+  tft.fillRect(56,135,2,1,BROWN);
+  tft.fillRect(50,136,12,1,ORANGE);
+  tft.fillRect(50,137,8,2,ORANGE);
+  tft.fillRect(50,138,7,4,ORANGE);
+  tft.fillRect(57,140,1,3,ORANGE);
+  tft.fillRect(58,141,1,2,ORANGE);
+  tft.fillRect(59,142,1,1,ORANGE);
+  tft.fillRect(58,132,2,4,ORANGE);
+  tft.fillRect(60,133,2,1,ORANGE);
+  tft.fillRect(60,134,1,2,ORANGE);
+  tft.fillRect(57,128,2,1,GRAY);
+  tft.fillRect(59,127,1,1,GRAY);
+  tft.fillRect(72,121,1,10,ORANGE);
+  tft.fillRect(59,122,2,1,ORANGE);
+  tft.fillRect(61,122,2,1,BROWN);
+  tft.fillRect(63,122,1,4,ORANGE);
+  tft.fillRect(59,123,1,1,ORANGE);
+  tft.fillRect(60,123,3,1,BROWN);
+  tft.fillRect(60,124,3,2,ORANGE);
+  tft.fillRect(59,126,3,1,ORANGE);
+  tft.fillRect(60,127,2,1,ORANGE);
+  tft.fillRect(59,128,6,2,ORANGE);
+  tft.fillRect(59,130,3,1,ORANGE);
+  tft.fillRect(58,136,7,4,ORANGE);
+  tft.fillRect(56,139,1,1,ORANGE);
+  tft.fillRect(64,124,4,4,ORANGE);
+  tft.fillRect(65,128,1,1,LBROWN);
+
+  tft.fillRect(60, 120, 3, 1, ORANGE);
+  tft.fillRect(69,120,3,1,ORANGE);
+  tft.fillRect(60,121,1,1,ORANGE);
+  tft.fillRect(61,121,1,1,BROWN);
+  tft.fillRect(62,121,1,1,ORANGE);
+  tft.fillRect(66,121,1,1,ORANGE);
+  tft.fillRect(67,121,1,1,BROWN);
+  tft.fillRect(68,121,2,1,ORANGE);
+  tft.fillRect()
+
 }
 
 unsigned long drawCharacter(uint8_t frame) {
