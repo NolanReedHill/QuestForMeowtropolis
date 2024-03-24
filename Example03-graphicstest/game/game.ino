@@ -35,7 +35,8 @@
 #define PINK    0xe558
 #define BROWN   0x8b06
 #define LBROWN  0xc52f
-
+#define LGREEN  0x8d8f
+#define TRINK   0xed9a
 
 
 Elegoo_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
@@ -293,8 +294,6 @@ unsigned long drawCharacter(uint8_t frame) {
   switch(frame) 
   {
     case 0:
-    tft.fillRect(62,235,10,8,BLUE);
-    tft.fillRect(68,222,6,12,BLUE);
     tft.fillRect(58, 219, 12, 4, ORANGE);
     tft.fillRect(56, 218, 2, 6, ORANGE);
     tft.fillRect(67,215,3,3,ORANGE);
@@ -444,13 +443,13 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(73,228,2,3,ORANGE);
     tft.fillRect(73,229,1,1,GRAY);
     tft.fillRect(74,230,1,1,GRAY);
-    tft.fillRect(70,223,5,10,BLUE);
+    tft.fillRect(70,223,5,10,WHITE);
     tft.fillRect(70,224,1,4,ORANGE);
     tft.fillRect(71,223,1,4,ORANGE);
     tft.fillRect(72,223,1,3,ORANGE);
     tft.fillRect(73,222,1,3,ORANGE);
     tft.fillRect(74,221,1,3,ORANGE);
-    tft.fillRect(62,235,9,10,BLUE);
+    tft.fillRect(65,235,7,8,WHITE);
     tft.fillRect(65,235,6,4,ORANGE);
     tft.fillRect(66,239,6,1,ORANGE);
     tft.fillRect(67,240,5,1,ORANGE);
@@ -464,7 +463,7 @@ unsigned long drawCharacter(uint8_t frame) {
     // player y is 210
     tft.fillRect(58, playerY+9, 12, 4, ORANGE);
     tft.fillRect(56, playerY+8, 2, 6, ORANGE);
-    tft.fillRect(67,playerY+5,3,3,ORANGE);
+    tft.fillRect(67,playerY+5=,3,3,ORANGE);
     tft.fillRect(68,playerY+6,3,5,ORANGE);
     tft.fillRect(57,playerY,1,1,ORANGE);
     tft.fillRect(56,playerY+1,3,1,ORANGE);
@@ -535,13 +534,13 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(73,playerY+18,2,3,ORANGE);
     tft.fillRect(73,playerY+19,1,1,GRAY);
     tft.fillRect(74,playerY+20,1,1,GRAY);
-    tft.fillRect(70,playerY+13,5,10,BLUE);
+    tft.fillRect(68,playerY+13,7,10,BLUE);
     tft.fillRect(70,playerY+14,1,4,ORANGE);
     tft.fillRect(71,playerY+13,1,4,ORANGE);
     tft.fillRect(72,playerY+13,1,3,ORANGE);
     tft.fillRect(73,playerY+12,1,3,ORANGE);
     tft.fillRect(74,playerY+11,1,3,ORANGE);
-    tft.fillRect(65,playerY+25,7,8,BLUE);
+    tft.fillRect(65,playerY+25,10,8,BLUE);
     tft.fillRect(65,playerY+25,6,4,ORANGE);
     tft.fillRect(66,playerY+29,6,1,ORANGE);
     tft.fillRect(67,playerY+30,5,1,ORANGE);
@@ -554,6 +553,8 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(57,playerY+25,5,2,ORANGE);
     tft.fillRect(65,playerY+25,5,2,ORANGE);
     tft.fillRect(67,playerY+27,5,2,ORANGE);
+    tft.fillRect(50,playerY+14,2,2,BLUE);
+    tft.fillRect(60,playerY,5,5,BLUE);
 
     break;
     default: tft.fillRect(50, playerY, 25, 35, GREEN);
@@ -605,7 +606,12 @@ unsigned long sendObstacle() {
     isObstaclePresent = true;
   }
   
-  tft.fillRect(obstacleX, 245-obstacleH, obstacleW, obstacleH, BLACK);
+  tft.fillRect(obstacleX+3, 250-obstacleH, 4, obstacleH-5,TRINK);
+  tft.fillRect(obstacleX, 246-obstacleH, obstacleW, 4,LGREEN);
+  tft.fillRect(obstacleX+5, 245-obstacleH, obstacleW-7, 1,LGREEN);
+
+
+
   tft.fillRect(obstacleX+obstacleW, 245-obstacleH, obstacleW+20, obstacleH, BLUE);
 
   if (obstacleX < -50) {
@@ -713,7 +719,7 @@ unsigned long checkAccel() {
     quakeSequence = 3;
 }
 }
-
+// death animation commences
 unsigned long gameOver(int s) {
   switch(gameOverSequence) {
     case 5:
@@ -801,9 +807,8 @@ unsigned long gameOver(int s) {
     tft.fillRect(55,218-20,1,1,BLACK);
     tft.fillRect(68,216-20,1,1,BLACK);
     tft.fillRect(68,218-20,1,1,BLACK);
-
-
     tft.fillRect(50, playerY-20+35, 25, 20, BLUE);
+    
     break;
     case 4: 
     tft.fillRect(58, 219+10, 12, 4, ORANGE);
@@ -892,6 +897,7 @@ unsigned long gameOver(int s) {
     tft.fillRect(68,218+10,1,1,BLACK);
     tft.fillRect(50, playerY-20, 25, 30, BLUE);
     sendObstacle();
+    
     break;
     case 3:
     tft.fillRect(58, 219+40, 12, 4, ORANGE);
@@ -979,10 +985,10 @@ unsigned long gameOver(int s) {
     tft.fillRect(68,216+40,1,1,BLACK);
     tft.fillRect(68,218+40,1,1,BLACK);
 
-
     tft.fillRect(50, playerY+10, 25, 245-(playerY+10), BLUE);
     tft.fillRect(50, 245, 25, (playerY+40)-210, GREEN);
     sendObstacle();
+
     break;
     case 2:
     tft.fillRect(58, 219+70, 12, 4, ORANGE);
@@ -1069,7 +1075,6 @@ unsigned long gameOver(int s) {
     tft.fillRect(55,218+70,1,1,BLACK);
     tft.fillRect(68,216+70,1,1,BLACK);
     tft.fillRect(68,218+70,1,1,BLACK);
-
     tft.fillRect(50, playerY+40, 25, 245-(playerY+10), BLUE);
     tft.fillRect(50, 245, 25, (playerY+70)-210, GREEN);
 
