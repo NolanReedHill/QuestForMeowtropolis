@@ -293,6 +293,8 @@ unsigned long drawCharacter(uint8_t frame) {
   switch(frame) 
   {
     case 0:
+    tft.fillRect(62,235,10,8,BLUE);
+    tft.fillRect(68,222,6,12,BLUE);
     tft.fillRect(58, 219, 12, 4, ORANGE);
     tft.fillRect(56, 218, 2, 6, ORANGE);
     tft.fillRect(67,215,3,3,ORANGE);
@@ -442,13 +444,13 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(73,228,2,3,ORANGE);
     tft.fillRect(73,229,1,1,GRAY);
     tft.fillRect(74,230,1,1,GRAY);
-    tft.fillRect(70,223,5,10,WHITE);
+    tft.fillRect(70,223,5,10,BLUE);
     tft.fillRect(70,224,1,4,ORANGE);
     tft.fillRect(71,223,1,4,ORANGE);
     tft.fillRect(72,223,1,3,ORANGE);
     tft.fillRect(73,222,1,3,ORANGE);
     tft.fillRect(74,221,1,3,ORANGE);
-    tft.fillRect(65,235,7,8,WHITE);
+    tft.fillRect(62,235,9,10,BLUE);
     tft.fillRect(65,235,6,4,ORANGE);
     tft.fillRect(66,239,6,1,ORANGE);
     tft.fillRect(67,240,5,1,ORANGE);
@@ -462,7 +464,7 @@ unsigned long drawCharacter(uint8_t frame) {
     // player y is 210
     tft.fillRect(58, playerY+9, 12, 4, ORANGE);
     tft.fillRect(56, playerY+8, 2, 6, ORANGE);
-    tft.fillRect(67,playerY+5=,3,3,ORANGE);
+    tft.fillRect(67,playerY+5,3,3,ORANGE);
     tft.fillRect(68,playerY+6,3,5,ORANGE);
     tft.fillRect(57,playerY,1,1,ORANGE);
     tft.fillRect(56,playerY+1,3,1,ORANGE);
@@ -533,13 +535,13 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(73,playerY+18,2,3,ORANGE);
     tft.fillRect(73,playerY+19,1,1,GRAY);
     tft.fillRect(74,playerY+20,1,1,GRAY);
-    tft.fillRect(70,playerY+13,5,10,WHITE);
+    tft.fillRect(70,playerY+13,5,10,BLUE);
     tft.fillRect(70,playerY+14,1,4,ORANGE);
     tft.fillRect(71,playerY+13,1,4,ORANGE);
     tft.fillRect(72,playerY+13,1,3,ORANGE);
     tft.fillRect(73,playerY+12,1,3,ORANGE);
     tft.fillRect(74,playerY+11,1,3,ORANGE);
-    tft.fillRect(65,playerY+25,7,8,WHITE);
+    tft.fillRect(65,playerY+25,7,8,BLUE);
     tft.fillRect(65,playerY+25,6,4,ORANGE);
     tft.fillRect(66,playerY+29,6,1,ORANGE);
     tft.fillRect(67,playerY+30,5,1,ORANGE);
