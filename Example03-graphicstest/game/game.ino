@@ -137,6 +137,7 @@ int isYarnPresent = false;
 bool yarnDeflect = false;
 int yarnX = 300;
 int yarnY = 0;
+bool isMusicPlaying = false;
 //MMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 int xMin = 263;
 int xMax = 393;
@@ -147,6 +148,7 @@ int yMax = 395;
 int zMin = 267;
 int zMax = 397;
 //MMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+
 
 void loop(void) {
   playMusic();
@@ -160,14 +162,15 @@ void loop(void) {
       isObstaclePresent = false;
       obstacleX = 240;
       score = 0;
+      yarnX = 300;
+      yarnY = 0;
+      isYarnPresent = false;
       tft.fillRect(0,0, 240, 245, BLUE);
       gameOverSequence = 5;
 
     } 
 
   } else {
-
-  
 
   collisionCheck();
 
@@ -334,7 +337,7 @@ unsigned long displayScore() {
 }
 
 unsigned long jump() {
-  if ( momentum > -60 && !isPressed) {
+  if ( momentum > -60 && !isPressed && !goingDown) {
     momentum -= 20;
   }
   else if (momentum < 0){
@@ -458,8 +461,13 @@ unsigned long gameOver(int s) {
 }
 
 unsigned long playMusic() {
+  isMusicPlaying = true;
   Tone tone1;
-  tone1.begin(15);
-  tone1.play(NOTE_C3);
+  Tone tone2;
+  tone1.begin(14);
+  tone2.begin(15);
+  tone1.play(NOTE_G3);
+  tone2.play(NOTE_G3);
+  isMusicPlaying = false;
 }
 
