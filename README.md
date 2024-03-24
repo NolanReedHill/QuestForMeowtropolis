@@ -1,6 +1,7 @@
 # Quest for Meowtropolis
 # CREDITS:
-# Made by Aislinn Jones and Nolan Hill
+# Nolan Hill [GitHub](https://github.com/NolanReedHill) [LinkedIn](https://www.linkedin.com/in/nolan-hill-b980981b1/)
+# Aislinn Jones [GitHub](https://github.com/amjams22) [LinkedIn](https://www.linkedin.com/in/aislinn-jones-4259961b6/)
 # UVA Hackathon 2024, 3/23-3/24 12pm-12-pm
 # ----------------------------------------
 
