@@ -341,7 +341,6 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(71,221,1,1,GRAY);
     tft.fillRect(70,223,2,1,ORANGE);
     tft.fillRect(54,223,4,1,ORANGE);
-    tft.fillRect(50,224,2,10,ORANGE);
     tft.fillRect(52,232,2,2,ORANGE);
     tft.fillRect(54,233,1,2,ORANGE);
     tft.fillRect(55,233,2,2,ORANGE);
@@ -419,7 +418,6 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(71,221,1,1,GRAY);
     tft.fillRect(70,223,2,1,ORANGE);
     tft.fillRect(54,223,4,1,ORANGE);
-    tft.fillRect(50,224,2,10,ORANGE);
     tft.fillRect(52,232,2,2,ORANGE);
     tft.fillRect(54,233,1,2,ORANGE);
     tft.fillRect(55,233,2,2,ORANGE);
@@ -511,7 +509,6 @@ unsigned long drawCharacter(uint8_t frame) {
     tft.fillRect(71,playerY+11,1,1,GRAY);
     tft.fillRect(70,playerY+13,2,1,ORANGE);
     tft.fillRect(54,playerY+13,4,1,ORANGE);
-    tft.fillRect(50,playerY+14,2,10,ORANGE);
     tft.fillRect(52,playerY+22,2,2,ORANGE);
     tft.fillRect(54,playerY+23,1,2,ORANGE);
     tft.fillRect(55,playerY+23,2,2,ORANGE);
@@ -773,7 +770,6 @@ unsigned long gameOver(int s) {
     tft.fillRect(71,221-20,1,1,GRAY);
     tft.fillRect(70,223-20,2,1,ORANGE);
     tft.fillRect(54,223-20,4,1,ORANGE);
-    tft.fillRect(50,224-20,2,10,ORANGE);
     tft.fillRect(52,232-20,2,2,ORANGE);
     tft.fillRect(54,233-20,1,2,ORANGE);
     tft.fillRect(55,233-20,2,2,ORANGE);
@@ -861,7 +857,6 @@ unsigned long gameOver(int s) {
     tft.fillRect(71,221+10,1,1,GRAY);
     tft.fillRect(70,223+10,2,1,ORANGE);
     tft.fillRect(54,223+10,4,1,ORANGE);
-    tft.fillRect(50,224+10,2,10,ORANGE);
     tft.fillRect(52,232+10,2,2,ORANGE);
     tft.fillRect(54,233+10,1,2,ORANGE);
     tft.fillRect(55,233+10,2,2,ORANGE);
@@ -950,7 +945,6 @@ unsigned long gameOver(int s) {
     tft.fillRect(71,221+40,1,1,GRAY);
     tft.fillRect(70,223+40,2,1,ORANGE);
     tft.fillRect(54,223+40,4,1,ORANGE);
-    tft.fillRect(50,224+40,2,10,ORANGE);
     tft.fillRect(52,232+40,2,2,ORANGE);
     tft.fillRect(54,233+40,1,2,ORANGE);
     tft.fillRect(55,233+40,2,2,ORANGE);
@@ -1043,7 +1037,6 @@ unsigned long gameOver(int s) {
     tft.fillRect(71,221+70,1,1,GRAY);
     tft.fillRect(70,223+70,2,1,ORANGE);
     tft.fillRect(54,223+70,4,1,ORANGE);
-    tft.fillRect(50,224+70,2,10,ORANGE);
     tft.fillRect(52,232+70,2,2,ORANGE);
     tft.fillRect(54,233+70,1,2,ORANGE);
     tft.fillRect(55,233+70,2,2,ORANGE);
@@ -1132,7 +1125,6 @@ unsigned long gameOver(int s) {
     tft.fillRect(71,221+90,1,1,GRAY);
     tft.fillRect(70,223+90,2,1,ORANGE);
     tft.fillRect(54,223+90,4,1,ORANGE);
-    tft.fillRect(50,224+90,2,10,ORANGE);
     tft.fillRect(52,232+90,2,2,ORANGE);
     tft.fillRect(54,233+90,1,2,ORANGE);
     tft.fillRect(55,233+90,2,2,ORANGE);
