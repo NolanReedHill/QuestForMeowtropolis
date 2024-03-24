@@ -210,7 +210,7 @@ void loop(void) {
     sendObstacle();
   }
 
-  if (!isYarnPresent && rand() % 2 == 1) {
+  if (!isYarnPresent && rand() % 20 == 1) {
     sendYarn();
   }
   if (isYarnPresent) {
@@ -466,8 +466,16 @@ unsigned long playMusic() {
   Tone tone2;
   tone1.begin(14);
   tone2.begin(15);
-  tone1.play(NOTE_G3);
-  tone2.play(NOTE_G3);
+  tone1.play(NOTE_G3, 1000);
+  tone2.play(NOTE_C3 , 1000);
+  tone1.play(NOTE_G3, 1000);
+  tone2.play(NOTE_C3 , 1000);
+  tone1.play(NOTE_G3, 1000);
+  tone2.play(NOTE_C3 , 1000);
+  tone1.play(NOTE_G3, 1000);
+  tone2.play(NOTE_C3 , 1000);
+  tone1.play(NOTE_G3, 1000);
+  tone2.play(NOTE_C3 , 1000);
   isMusicPlaying = false;
 }
 
