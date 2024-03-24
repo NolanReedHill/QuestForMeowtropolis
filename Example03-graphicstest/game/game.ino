@@ -353,6 +353,10 @@ unsigned long collisionCheck() {
     }
     
   }
+  else if (yarnX <= 40 && yarnY >= playerY) {
+    delay(1000);
+    isGameOver = true;
+  }
 }
 
 unsigned long checkAccel() {
