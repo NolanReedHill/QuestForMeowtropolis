@@ -236,15 +236,104 @@ unsigned long titleScreen() {
   tft.fillRect(110,230,10,10,BLACK);
 
 
-
 }
 
 unsigned long drawCharacter(uint8_t frame) {
   switch(frame) 
   {
-    case 0: tft.fillRect(70, 210, 25, 35, WHITE);
+    case 0: 
+    tft.fillRect(57,210,1,1,ORANGE);
+    tft.fillRect(56,211,3,1,ORANGE);
+    tft.fillRect(55,212,5,1,ORANGE);
+    tft.fillRect(55,213,2,1,ORANGE);
+    tft.fillRect(57,213,1,1,BROWN);
+    tft.fillRect(58,213,2,1,ORANGE);
+    tft.fillRect(55,214,1,1,ORANGE);
+    tft.fillRect(56,214,3,1,BROWN);
+    tft.fillRect(59,214,1,1,ORANGE);
+    tft.fillRect(55,215,14,4,ORANGE);
+    tft.fillRect(70,216,1,1,ORANGE);
+    tft.fillRect(67,211,2,1,ORANGE);
+    tft.fillRect(66,212,2,1,ORANGE);
+    tft.fillRect(65,213,5,2,ORANGE);
+    tft.fillRect(67,215,3,2,BROWN);
+    tft.fillRect(68,212,1,1,BROWN);
+    tft.fillRect(69,211,1,2,ORANGE);
+    tft.fillRect(55,215,14,5,ORANGE);
+    tft.fillRect(70,216,1,13,ORANGE);
+    tft.fillRect(71,217,1,5,ORANGE);
+    tft.fillRect(72,217,1,1,GRAY);
+    tft.fillRect(72,219,2,1,GRAY);
+    tft.fillRect(60,216,2,2,WHITE);
+    tft.fillRect(61,217,1,1,BLACK);
+    tft.fillRect(65,216,2,2,WHITE);
+    tft.fillRect(66,217,1,1,BLACK);  
+    tft.fillRect(62,219,1,1,PINK);
+    tft.fillRect(61,220,1,1,BLACK);
+    tft.fillRect(62,221,1,1,BLACK);
+    tft.fillRect(63,220,1,1,BLACK);
+    tft.fillRect(64,221,2,1,BLACK);
+    tft.fillRect(66,220,1,1,BLACK);
+    tft.fillRect(54,217,3,1,GRAY);
+    tft.fillRect(54,219,2,1,GRAY);
+    tft.fillRect(56,221,1,1,GRAY);
+    tft.fillRect(57,222,1,1,GRAY);
+    tft.fillRect(58,223,12,1,GRAY);
+    tft.fillRect(70,222,1,1,GRAY);
+    tft.fillRect(71,221,1,1,GRAY);
+    tft.fillRect(70,223,2,1,ORANGE);
+    tft.fillRect(54,223,4,1,ORANGE);
+    tft.fillRect(50,224,2,10,ORANGE);
+    tft.fillRect(52,232,2,2,ORANGE);
+    tft.fillRect(54,233,1,2,ORANGE);
+    tft.fillRect(55,233,2,2,ORANGE);
+    tft.fillRect(54,222,3,7,ORANGE);
+    tft.fillRect(53,229,2,2,ORANGE);
+    tft.fillRect(54,229,1,1,GRAY);
+    tft.fillRect(53,230,1,1,GRAY);
+    tft.fillRect(57,224,13,11,ORANGE);
+    tft.fillRect(57,235,5,6,ORANGE);
+    tft.fillRect(57,241,4,1,ORANGE);
+    tft.fillRect(58,242,3,1,ORANGE);
+    tft.fillRect(57,243,3,2,ORANGE);
+    tft.fillRect(58,243,1,1,GRAY);
+    tft.fillRect(57,244,1,1,GRAY);
+    tft.fillRect(59,244,1,1,GRAY);
+    tft.fillRect(63,235,5,6,ORANGE);
+    tft.fillRect(64,241,4,2,ORANGE);
+    tft.fillRect(65,243,4,2,ORANGE);
+    tft.fillRect(67,243,1,1,GRAY);
+    tft.fillRect(66,244,1,1,GRAY);
+    tft.fillRect(68,244,1,1,GRAY);
+    tft.fillRect(70,224,2,5,ORANGE);
+    tft.fillRect(72,226,1,1,ORANGE);
+    tft.fillRect(72,227,2,3,ORANGE);
+    tft.fillRect(73,228,2,3,ORANGE);
+    tft.fillRect(73,229,1,1,GRAY);
+    tft.fillRect(74,230,1,1,GRAY);
+
+    
+
+
+
+
+
+
+
+
+
+
     break;
     case 1: tft.fillRect(70, 210, 25, 35, RED);
+
+
+
+
+
+
+
+
+
     break;
     default: tft.fillRect(70, 170, 25, 35, WHITE);
   }
