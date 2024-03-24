@@ -6,7 +6,7 @@
 #include <Elegoo_GFX.h>    // Core graphics library
 #include <Elegoo_TFTLCD.h> // Hardware-specific library
 #include <SPI.h>
-#include <Tone.h>
+//#include <Tone.h>
 // The control pins for the LCD can be assigned to any digital or
 // analog pins...but we'll use the analog pins as this allows us to
 // double up the pins with the touch screen (see the TFT paint example).
@@ -137,7 +137,7 @@ int isYarnPresent = false;
 bool yarnDeflect = false;
 int yarnX = 300;
 int yarnY = 0;
-bool isMusicPlaying = false;
+bool isJumpPlaying = false;
 //MMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 int xMin = 263;
 int xMax = 393;
@@ -151,7 +151,6 @@ int zMax = 397;
 
 
 void loop(void) {
-  playMusic();
   if(isGameOver) {
     gameOver(score);
     if (gameOverSequence >= 0)
@@ -338,6 +337,7 @@ unsigned long displayScore() {
 
 unsigned long jump() {
   if ( momentum > -60 && !isPressed && !goingDown) {
+    if (!isJumpPlaying) jumpSound();
     momentum -= 20;
   }
   else if (momentum < 0){
@@ -460,22 +460,30 @@ unsigned long gameOver(int s) {
 
 }
 
-unsigned long playMusic() {
-  isMusicPlaying = true;
-  Tone tone1;
-  Tone tone2;
-  tone1.begin(14);
-  tone2.begin(15);
-  tone1.play(NOTE_G3, 1000);
-  tone2.play(NOTE_C3 , 1000);
-  tone1.play(NOTE_G3, 1000);
-  tone2.play(NOTE_C3 , 1000);
-  tone1.play(NOTE_G3, 1000);
-  tone2.play(NOTE_C3 , 1000);
-  tone1.play(NOTE_G3, 1000);
-  tone2.play(NOTE_C3 , 1000);
-  tone1.play(NOTE_G3, 1000);
-  tone2.play(NOTE_C3 , 1000);
-  isMusicPlaying = false;
+unsigned long jumpSound() {
+  isJumpPlaying = true;
+  int tonePin = 14;
+    tone(tonePin, 391, 47.619047619);
+    // delay(47.619047619);
+    // delay(47.619047619);
+    // delay(23.8095238095);
+    tone(tonePin, 415, 47.619047619);
+    // delay(47.619047619);
+    tone(tonePin, 880, 47.619047619);
+    // delay(47.619047619);
+    // delay(23.8095238095);
+    // delay(23.8095238095);
+    tone(tonePin, 1046, 23.8095238095);
+    // delay(23.8095238095);
+    tone(tonePin, 554, 23.8095238095);
+    // delay(23.8095238095);
+    // delay(23.8095238095);
+    tone(tonePin, 587, 23.8095238095);
+    // delay(23.8095238095);
+    tone(tonePin, 622, 23.8095238095);
+    // delay(23.8095238095);
+    tone(tonePin, 659, 47.619047619);
+    // delay(47.619047619);
+    isJumpPlaying = false;
 }
 
