@@ -20,6 +20,10 @@
 
 #define BUTTON A6 //Jump button pin
 
+#define ACCELX A8 //accelerometer xyz
+#define ACCELY A9
+#define ACCELZ A10
+
 
 // When using the BREAKOUT BOARD only, use these 8 data lines to the LCD:
 // For the Arduino Uno, Duemilanove, Diecimila, etc.:
@@ -125,8 +129,43 @@ int obstacleX = 240;
 int obstacleW = 20;
 int obstacleH = 20;
 bool isObstaclePresent = false;
+bool isGameOver = false;
+int gameOverSequence = 5;
+float ACCELEROMETER_THRESHOLD = 2.0;
+int quakeSequence = -1;
+int quakePlayerY = 0;
+//MMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+int xMin = 263;
+int xMax = 393;
+//MMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+int yMin = 264;
+int yMax = 395;
+//MMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+int zMin = 267;
+int zMax = 397;
+//MMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 void loop(void) {
+  if(isGameOver) {
+    gameOver(score);
+    if (gameOverSequence >= 0)
+    gameOverSequence -=1;
+    delay(100);
+    if (gameOverSequence == -1 && digitalRead(BUTTON) == HIGH) {
+      isGameOver = false;
+      isObstaclePresent = false;
+      obstacleX = 240;
+      score = 0;
+      tft.fillRect(0,0, 240, 245, BLUE);
+      gameOverSequence = 5;
+
+    } 
+
+  } else {
+
+  
+
+  collisionCheck();
 
   if (digitalRead(BUTTON) == HIGH) {
     jump();
@@ -160,8 +199,12 @@ void loop(void) {
     sendObstacle();
   }
   if (isObstaclePresent) {
-    obstacleX -= 20;
+    obstacleX -= 30;
     sendObstacle();
+  }
+
+  checkAccel();
+  
   }
 }
 
@@ -195,7 +238,7 @@ unsigned long drawCharacter(uint8_t frame) {
   if (goingDown) {
     tft.fillRect(50, playerY-35, 25, 35, BLUE);
   }
-  delay(60);
+  delay(40);
 }
 
 unsigned long drawCloud() {
@@ -262,6 +305,111 @@ unsigned long jump() {
     momentum += 20;
   }
   playerY = 210+momentum;
+}
+
+unsigned long collisionCheck() {
+  if ((obstacleX >= 50 && obstacleX <= 75) || (obstacleX+obstacleW >= 50 && obstacleX+obstacleW <=75)) {
+    if(245-obstacleH >= playerY && 245-obstacleH <= playerY+35) {
+      delay(1000);
+      isGameOver = true;
+    }
+    
+  }
+}
+
+unsigned long checkAccel() {
+
+  if (quakeSequence > -1) {
+    switch(quakeSequence) {
+      case 3:
+      quakePlayerY = playerY;
+      tft.drawCircle(60, quakePlayerY, 25, RED);
+      break;
+      case 2:
+      tft.drawCircle(60, quakePlayerY, 25, BLUE);
+      tft.fillRect(0, 245, 150, 75, GREEN);
+      tft.drawCircle(50, quakePlayerY, 50, RED);
+      break;
+      case 1:
+      tft.drawCircle(60, quakePlayerY, 50, BLUE);
+      tft.fillRect(0, 245, 150, 75, GREEN);
+      tft.drawCircle(60, quakePlayerY, 75, RED);
+      break;
+      case 0:
+      tft.drawCircle(60, quakePlayerY, 75, BLUE);
+      tft.fillRect(0, 245, 150, 75, GREEN);
+      break;
+    }
+    delay(50);
+    quakeSequence --;
+  }
+
+
+
+  int x = analogRead(ACCELX);
+  int y = analogRead(ACCELY);
+  int z = analogRead(ACCELZ);
+
+  long xMilliG = map(x, xMin, xMax, -1000, 1000);
+  long yMilliG = map(y, yMin, yMax, -1000, 1000);
+  long zMilliG = map(z, zMin, zMax, -1000, 1000);
+  //--------------------------------------------------------------
+  // re-scale to fractional Gs
+  float x_g_value = xMilliG / 1000.0;
+  float y_g_value = yMilliG / 1000.0;
+  float z_g_value = zMilliG / 1000.0;
+
+
+
+  float accelerationMagnitude = sqrt(x_g_value * x_g_value + y_g_value * y_g_value + z_g_value * z_g_value);
+  if (accelerationMagnitude > ACCELEROMETER_THRESHOLD) {
+    quakeSequence = 3;
+}
+}
+
+unsigned long gameOver(int s) {
+  switch(gameOverSequence) {
+    case 5:
+    tft.fillRect(50, playerY-20, 25, 35, WHITE);
+    tft.fillRect(50, playerY-20+35, 25, 20, BLUE);
+    break;
+    case 4: 
+    tft.fillRect(50, playerY+10, 25, 35, WHITE);
+    tft.fillRect(50, playerY-20, 25, 30, BLUE);
+    sendObstacle();
+    break;
+    case 3:
+    tft.fillRect(50, playerY+40, 25, 35, WHITE);
+    tft.fillRect(50, playerY+10, 25, 245-(playerY+10), BLUE);
+    tft.fillRect(50, 245, 25, (playerY+40)-210, GREEN);
+    sendObstacle();
+    break;
+    case 2:
+    tft.fillRect(50, playerY+70, 25, 35, WHITE);
+    tft.fillRect(50, playerY+40, 25, 245-(playerY+10), BLUE);
+    tft.fillRect(50, 245, 25, (playerY+70)-210, GREEN);
+
+    break;
+    case 1: 
+    tft.fillRect(50, playerY+90, 25, 35, WHITE);
+    tft.fillRect(50, playerY+70, 25, 245-(playerY+10), BLUE);
+    tft.fillRect(50, 245, 25, (playerY+90)-210, GREEN);
+    break;
+    case 0:
+    tft.setCursor(60, 100);
+    tft.println("GAME OVER");
+    tft.setCursor(60, 120);
+    tft.println("SCORE:");
+    tft.setCursor(60,140);
+    tft.println(s);
+    delay(1000);
+    tft.setCursor(60,160);
+    tft.println("PRESS BUTTON");
+    tft.setCursor(60,180);
+    tft.println("TO RESTART");
+    break;
+  }
+
 }
 
 
