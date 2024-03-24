@@ -353,7 +353,7 @@ unsigned long collisionCheck() {
     }
     
   }
-  else if (yarnX <= 40 && yarnY >= playerY) {
+  else if (yarnX <= 75 && yarnY >= playerY) {
     delay(1000);
     isGameOver = true;
   }
@@ -386,8 +386,7 @@ unsigned long checkAccel() {
     delay(50);
     quakeSequence --;
   }
-
-
+  else {
 
   int x = analogRead(ACCELX);
   int y = analogRead(ACCELY);
@@ -407,6 +406,7 @@ unsigned long checkAccel() {
   float accelerationMagnitude = sqrt(x_g_value * x_g_value + y_g_value * y_g_value + z_g_value * z_g_value);
   if (accelerationMagnitude > ACCELEROMETER_THRESHOLD) {
     quakeSequence = 3;
+    }
 }
 }
 
