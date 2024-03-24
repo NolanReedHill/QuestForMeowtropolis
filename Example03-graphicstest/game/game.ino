@@ -131,9 +131,13 @@ int obstacleH = 20;
 bool isObstaclePresent = false;
 bool isGameOver = false;
 int gameOverSequence = 5;
-float ACCELEROMETER_THRESHOLD = 2.0;
+float ACCELEROMETER_THRESHOLD = 1.75;
 int quakeSequence = -1;
 int quakePlayerY = 0;
+int isYarnPresent = false;
+bool yarnDeflect = false;
+int yarnX = 300;
+int yarnY = 0;
 //MMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 int xMin = 263;
 int xMax = 393;
@@ -201,6 +205,18 @@ void loop(void) {
   if (isObstaclePresent) {
     obstacleX -= 30;
     sendObstacle();
+  }
+
+  if (!isYarnPresent && rand() % 2 == 1) {
+    sendYarn();
+  }
+  if (isYarnPresent) {
+    if (!yarnDeflect) {
+      yarnX-= 15;
+      yarnY+=15;
+    }
+    else yarnY-=15;
+    sendYarn();
   }
 
   checkAccel();
@@ -286,6 +302,28 @@ unsigned long sendObstacle() {
   }
 }
 
+unsigned long sendYarn() {
+  if (!isYarnPresent)
+  isYarnPresent = true;
+
+  if (yarnDeflect) {
+    tft.fillCircle(yarnX, yarnY, 10, YELLOW);
+    tft.fillCircle(yarnX, yarnY+20, 10, BLUE);
+  }else {
+    tft.fillCircle(yarnX,yarnY, 10, YELLOW);
+    tft.fillCircle(yarnX+15, yarnY-15, 10, BLUE);
+  }
+  if (yarnY < -20) {
+    yarnDeflect = false;
+    isYarnPresent = false;
+    yarnX = 300;
+    yarnY = 0;
+  }
+
+  
+
+}
+
 unsigned long displayScore() {
   tft.fillRect(0,5, 240, 30, BLUE);
   score+= 10;
@@ -320,6 +358,7 @@ unsigned long collisionCheck() {
 unsigned long checkAccel() {
 
   if (quakeSequence > -1) {
+    yarnDeflect = true;
     switch(quakeSequence) {
       case 3:
       quakePlayerY = playerY;
@@ -328,7 +367,7 @@ unsigned long checkAccel() {
       case 2:
       tft.drawCircle(60, quakePlayerY, 25, BLUE);
       tft.fillRect(0, 245, 150, 75, GREEN);
-      tft.drawCircle(50, quakePlayerY, 50, RED);
+      tft.drawCircle(60, quakePlayerY, 50, RED);
       break;
       case 1:
       tft.drawCircle(60, quakePlayerY, 50, BLUE);
@@ -366,6 +405,8 @@ unsigned long checkAccel() {
     quakeSequence = 3;
 }
 }
+
+
 
 unsigned long gameOver(int s) {
   switch(gameOverSequence) {
